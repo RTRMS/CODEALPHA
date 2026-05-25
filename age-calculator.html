@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Age Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f0e8;
+      --card: #fffef9;
+      --ink: #1a1612;
+      --muted: #7a6f63;
+      --accent: #c94f2c;
+      --border: #e0d8cc;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px 40px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 36px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .date-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      gap: 10px;
+    }
+
+    .date-inputs input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: var(--ink);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.2s;
+      text-align: center;
+    }
+
+    .date-inputs input:focus {
+      border-color: var(--accent);
+      background: #fff;
+    }
+
+    .date-inputs input::placeholder { color: var(--border); }
+
+    .mini-label {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover { background: #b03e20; }
+    .btn:active { transform: scale(0.99); }
+
+    .error {
+      font-size: 0.82rem;
+      color: var(--accent);
+      margin-top: 10px;
+      min-height: 18px;
+    }
+
+    .result {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+
+    .result.visible { display: block; }
+
+    .result-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .age-main {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.2rem;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .age-main span { color: var(--accent); }
+
+    .age-detail {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+    }
+
+    .stat-unit {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Age Calculator</h1>
+  <p class="subtitle">Find out exactly how old you are.</p>
+
+  <div class="form-group">
+    <label>Date of Birth</label>
+    <div class="date-inputs">
+      <div>
+        <input type="number" id="day" placeholder="DD" min="1" max="31"/>
+        <span class="mini-label">Day</span>
+      </div>
+      <div>
+        <input type="number" id="month" placeholder="MM" min="1" max="12"/>
+        <span class="mini-label">Month</span>
+      </div>
+      <div>
+        <input type="number" id="year" placeholder="YYYY" min="1900" max="2099"/>
+        <span class="mini-label">Year</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="calculateAge()">Calculate Age</button>
+  <p class="error" id="error"></p>
+
+  <div class="result" id="result">
+    <p class="result-label">Your Age</p>
+    <div class="age-main"><span id="res-years">--</span> years</div>
+    <div class="age-detail" id="res-detail"></div>
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-num" id="res-months">--</div>
+        <div class="stat-unit">Months</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="res-weeks">--</div>
+        <div class="stat-unit">Weeks</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="res-days">--</div>
+        <div class="stat-unit">Days</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculateAge() {
+    const day   = parseInt(document.getElementById('day').value);
+    const month = parseInt(document.getElementById('month').value);
+    const year  = parseInt(document.getElementById('year').value);
+    const errorEl  = document.getElementById('error');
+    const resultEl = document.getElementById('result');
+
+    errorEl.textContent = '';
+    resultEl.classList.remove('visible');
+
+    // Basic validation
+    if (!day || !month || !year) {
+      errorEl.textContent = 'Please fill in all three fields.';
+      return;
+    }
+
+    const dob = new Date(year, month - 1, day);
+
+    // Check for invalid date (e.g. Feb 30)
+    if (
+      dob.getFullYear() !== year ||
+      dob.getMonth()    !== month - 1 ||
+      dob.getDate()     !== day
+    ) {
+      errorEl.textContent = 'That date doesn\'t exist. Please check again.';
+      return;
+    }
+
+    const today = new Date();
+
+    if (dob > today) {
+      errorEl.textContent = 'Date of birth cannot be in the future.';
+      return;
+    }
+
+    // --- Age in years, months, days ---
+    let ageYears  = today.getFullYear() - dob.getFullYear();
+    let ageMonths = today.getMonth()    - dob.getMonth();
+    let ageDays   = today.getDate()     - dob.getDate();
+
+    if (ageDays < 0) {
+      ageMonths--;
+      // Days in the previous month
+      const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      ageDays += prevMonth.getDate();
+    }
+
+    if (ageMonths < 0) {
+      ageYears--;
+      ageMonths += 12;
+    }
+
+    // --- Total months and days lived (for stat boxes) ---
+    const totalMonths = ageYears * 12 + ageMonths;
+
+    // --- Total days lived ---
+    const msPerDay  = 1000 * 60 * 60 * 24;
+    const totalDays = Math.floor((today - dob) / msPerDay);
+    const totalWeeks = Math.floor(totalDays / 7);
+
+    // Display
+    document.getElementById('res-years').textContent  = ageYears;
+    document.getElementById('res-detail').textContent =
+      `${ageMonths} month${ageMonths !== 1 ? 's' : ''} and ${ageDays} day${ageDays !== 1 ? 's' : ''}`;
+    document.getElementById('res-months').textContent = totalMonths.toLocaleString();
+    document.getElementById('res-weeks').textContent  = totalWeeks.toLocaleString();
+    document.getElementById('res-days').textContent   = totalDays.toLocaleString();
+
+    resultEl.classList.add('visible');
+  }
+
+  // Allow pressing Enter to calculate
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') calculateAge();
+  });
+</script>
+
+</body>
+</html>
