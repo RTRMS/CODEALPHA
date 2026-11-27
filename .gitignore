@@ -1,0 +1,18 @@
+# Runtime database (server.py recreates this with seed data on first run)
+annseva.db
+annseva.db-wal
+annseva.db-shm
+
+# Persisted/cached ML model (recreated automatically once 20+ completions exist)
+ml/random_forest.joblib
+ml/random_forest.meta.json
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Editors/OS
+.vscode/
+.DS_Store
