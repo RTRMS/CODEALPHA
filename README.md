@@ -207,7 +207,22 @@ http://127.0.0.1:8000
 - SMS and WhatsApp notification integration.
 - Cloud deployment and scalability.
 - Integration with larger agricultural datasets.
+## Application Screenshots
 
+### 1. Farmer Dashboard
+![Farmer Dashboard](screenshots/farmer-dashboard.png)
+
+### 2. Admin Dashboard
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+### 3. Crop Submission
+![Crop Submission](screenshots/submit-crop.png)
+
+### 4. Procurement Scheduling
+![Procurement Scheduling](screenshots/procurement-schedule.png)
+
+### 4. Rule Based Chatbot
+![Rule Based Chatbot](screenshots/Chatbot.png)
 ## Project Impact
 
 AnnSeva demonstrates how artificial intelligence, machine learning, and web technologies can be combined to address practical challenges in agricultural procurement.
