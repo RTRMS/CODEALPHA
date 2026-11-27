@@ -153,7 +153,7 @@ Make sure you have installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone <github.com/RTRMS/CODEALPHA>
 ```
 
 ### 2. Navigate to the Project Directory
